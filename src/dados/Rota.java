@@ -54,12 +54,11 @@ public class Rota {
         this.veiculo = veiculo;
     }
 
-
-    // nome do motorista, distancia, id da entrega, nome do cleinte
-
     @Override
     public String toString() {
-        return "Motorista: " + this.motorista.getNome() + "\nVeiculo: " + this.veiculo.getPlaca() +
-                "\nId da entrega: " + this.entrega.getIdEntrega() + "\nDistância (KM): " + this.distanciaKm;
+        return "[ID " + this.idRota + "]" + "\nMotorista: " + this.motorista.getNome() + "\nPlaca do Veiculo: " +
+                this.veiculo.getPlaca() + "\nCliente: " + this.entrega.getCliente().getNome() +
+                "\nStatus: " + this.entrega.getStatus() + "\nDistância (KM): " + this.distanciaKm;
     }
+
 }

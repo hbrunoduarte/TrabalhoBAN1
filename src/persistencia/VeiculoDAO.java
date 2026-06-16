@@ -1,6 +1,5 @@
 package persistencia;
 
-import dados.Motorista;
 import dados.Veiculo;
 
 import java.sql.Connection;

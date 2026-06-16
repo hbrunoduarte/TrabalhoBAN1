@@ -48,6 +48,8 @@ public class Veiculo {
 
     @Override
     public String toString() {
-        return "Placa: " + this.placa + "\nModelo: " + "\nCapacidade: ";
+        return "[ID " + this.idVeiculo + "]" + "\nPlaca: " + this.placa + "\nModelo: " +
+                this.modelo + "\nCapacidade: " + this.capacidade;
     }
+
 }

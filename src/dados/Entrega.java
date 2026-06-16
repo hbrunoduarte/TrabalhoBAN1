@@ -8,6 +8,8 @@ public class Entrega {
     private String status;
     private Cliente cliente;
 
+    public Entrega() {}
+
     public Entrega(LocalDate data_pedido, String status, Cliente cliente) {
         this.dtPedido = data_pedido;
         this.status = status;
@@ -48,7 +50,8 @@ public class Entrega {
 
     @Override
     public String toString() {
-        return "Data do pedido: " + this.dtPedido + "\nNome do cliente: " + this.cliente.getNome() +
+        return "[ID " + this.idEntrega + "]" + "\nData do pedido: " + this.dtPedido + "\nNome do cliente: " + this.cliente.getNome() +
                 "\nStatus: " + this.status;
     }
+
 }

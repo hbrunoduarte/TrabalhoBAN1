@@ -48,6 +48,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome + "\nTelefone: " + this.telefone + "\nEndereco: " + this.endereco;
+        return "[ID "+ this.idCliente + "]" + "\nNome: " + this.nome + "\nTelefone: " + this.telefone + "\nEndereco: " + this.endereco;
     }
+
 }

@@ -63,11 +63,10 @@ public class MotoristaDAO {
                 motorista.setNome(rs.getString("nome"));
                 motorista.setCnh(rs.getString("cnh"));
                 motorista.setCpf(rs.getString("cpf"));
-
                 java.sql.Date dataBD = rs.getDate("data_nascimento");
-                if(dataBD != null) {
+
+                if(dataBD != null)
                     motorista.setDtNascimento(dataBD.toLocalDate());
-                }
 
                 lista.add(motorista);
             }

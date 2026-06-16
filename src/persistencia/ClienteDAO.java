@@ -2,7 +2,6 @@ package persistencia;
 
 import dados.Cliente;
 
-import javax.naming.ldap.PagedResultsControl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,4 +72,5 @@ public class ClienteDAO {
 
         return lista;
     }
+
 }
