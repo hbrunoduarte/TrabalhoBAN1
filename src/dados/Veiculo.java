@@ -6,6 +6,8 @@ public class Veiculo {
     private float capacidade;
     private String modelo;
 
+    public Veiculo() {}
+
     public Veiculo(String placa, float capacidade, String modelo) {
         this.placa = placa;
         this.capacidade = capacidade;

@@ -11,7 +11,6 @@ import java.util.List;
 
 public class MotoristaDAO {
 
-    // Avisar se tem informacao repetida (cpf, cnh)
     public void inserir(Motorista motorista) {
         String query = "INSERT INTO Motorista (nome, cnh, cpf, data_nascimento) VALUES (?, ?, ?, ?)";
 
@@ -30,8 +29,6 @@ public class MotoristaDAO {
         }
     }
 
-    // Não deletar motorista que está associado a uma rota
-    // Avisar se deletou ou se não existia
     public void remover(int idMotorista) {
         String query = "DELETE FROM Motorista WHERE id_motorista = ?";
 
@@ -40,14 +37,17 @@ public class MotoristaDAO {
 
             st.setInt(1, idMotorista);
 
-            st.execute();
+            int linhasAlteradas = st.executeUpdate();
+
+            if(linhasAlteradas == 0) {
+                throw new RuntimeException("Nenhum motorista com ID " + idMotorista + " encontrado!");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar motorista do banco!", e);
         }
     }
 
-    // Adicionar data de nascimento
     public List<Motorista> listarTodos() {
         List<Motorista> lista = new ArrayList<>();
         String query = "SELECT * FROM Motorista";
@@ -64,13 +64,16 @@ public class MotoristaDAO {
                 motorista.setCnh(rs.getString("cnh"));
                 motorista.setCpf(rs.getString("cpf"));
 
-                // data de nascimento
+                java.sql.Date dataBD = rs.getDate("data_nascimento");
+                if(dataBD != null) {
+                    motorista.setDtNascimento(dataBD.toLocalDate());
+                }
 
                 lista.add(motorista);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao lista motoristas!", e);
+            throw new RuntimeException("Erro ao listar motoristas!", e);
         }
 
         return lista;
