@@ -7,6 +7,8 @@ public class Rota {
     private Motorista motorista;
     private Veiculo veiculo;
 
+    public Rota() {}
+
     public Rota(float distanciaKm, Entrega entrega, Motorista motorista, Veiculo veiculo) {
         this.distanciaKm = distanciaKm;
         this.entrega = entrega;
