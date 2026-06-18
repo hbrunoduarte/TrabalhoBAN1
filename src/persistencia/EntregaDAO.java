@@ -48,13 +48,7 @@ public class EntregaDAO {
         }
     }
 
-    public List<Entrega> listarTodos() {
-        List<Entrega> lista = new ArrayList<>();
-        String query = "SELECT e.id_entrega, e.data_pedido, e.status, " +
-                       "c.id_cliente, c.nome, c.telefone, c.endereco " +
-                       "FROM Entrega e INNER JOIN Cliente c " +
-                       "ON e.id_cliente = c.id_cliente ";
-
+    private List<Entrega> listarEntregas(List<Entrega> lista, String query) {
         try(Connection conn = Conexao.getConnection()) {
             PreparedStatement st = conn.prepareStatement(query);
             ResultSet rs = st.executeQuery();
@@ -87,6 +81,27 @@ public class EntregaDAO {
         }
 
         return lista;
+    }
+
+    public List<Entrega> listarTodos() {
+        List<Entrega> lista = new ArrayList<>();
+        String query = "SELECT e.id_entrega, e.data_pedido, e.status, " +
+                       "c.id_cliente, c.nome, c.telefone, c.endereco " +
+                       "FROM Entrega e INNER JOIN Cliente c " +
+                       "ON e.id_cliente = c.id_cliente ";
+
+        return listarEntregas(lista, query);
+    }
+
+    public List<Entrega> listarPendentes() {
+        List<Entrega> lista = new ArrayList<>();
+        String query = "SELECT e.id_entrega, e.data_pedido, e.status " +
+                       "c.id_cliente, c.nome, c.telefone, c.endereco " +
+                       "FROM Entrega e INNER JOIN Cliente c " +
+                       "ON e.id_cliente = c.id_cliente " +
+                       "WHERE e.status = 'Pendente'";
+
+        return listarEntregas(lista, query);
     }
 
 }
