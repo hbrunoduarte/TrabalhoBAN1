@@ -18,9 +18,9 @@ public class RotaDAO {
         try(Connection conn = Conexao.getConnection()) {
             PreparedStatement st = conn.prepareStatement(query);
 
-            st.setObject(1, rota.getEntrega());
-            st.setObject(2, rota.getMotorista());
-            st.setObject(3, rota.getVeiculo());
+            st.setObject(1, rota.getEntrega().getIdEntrega());
+            st.setObject(2, rota.getMotorista().getIdMotorista());
+            st.setObject(3, rota.getVeiculo().getIdVeiculo());
             st.setFloat(4, rota.getDistanciaKm());
 
             st.execute();
@@ -41,7 +41,7 @@ public class RotaDAO {
             int linhasAlteradas = st.executeUpdate();
 
             if(linhasAlteradas == 0) {
-                throw new RuntimeException("Nenhuma rota com ID " + idRota + " ncontrada!");
+                throw new RuntimeException("Nenhuma rota com ID " + idRota + " encontrada!");
             }
 
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class RotaDAO {
                 entrega.setIdEntrega(rs.getInt("e.id_entrega"));
                 java.sql.Date eDataBD = rs.getDate("e.data_pedido");
                 if(eDataBD != null)
-                    motorista.setDtNascimento(eDataBD.toLocalDate());
+                    entrega.setDtPedido(eDataBD.toLocalDate());
                 entrega.setStatus(rs.getString("e.status"));
                 entrega.setCliente(cliente);
 

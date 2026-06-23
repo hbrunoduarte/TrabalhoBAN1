@@ -77,4 +77,31 @@ public class MotoristaDAO {
 
         return lista;
     }
+
+    public List<String> listarPorKm() {
+        List<String> lista = new ArrayList<>();
+
+        String query = "SELECT m.nome, SUM(r.distancia_km) AS km_total " +
+                "FROM Rota r INNER JOIN Motorista m " +
+                "ON r.id_motorista = m.id_motorista " +
+                "GROUP BY m.nome " +
+                "ORDER BY km_total DESC";
+
+        try(Connection conn = Conexao.getConnection()) {
+            PreparedStatement st = conn.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+
+            while(rs.next()) {
+                String nome = rs.getString("nome");
+                float km = rs.getFloat("km_total");
+
+                lista.add("Motorista: " + nome + " | Total Percorrido: " + km + " KM");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar KM por motorista!", e);
+        }
+
+        return lista;
+    }
 }

@@ -95,7 +95,7 @@ public class EntregaDAO {
 
     public List<Entrega> listarPendentes() {
         List<Entrega> lista = new ArrayList<>();
-        String query = "SELECT e.id_entrega, e.data_pedido, e.status " +
+        String query = "SELECT e.id_entrega, e.data_pedido, e.status, " +
                        "c.id_cliente, c.nome, c.telefone, c.endereco " +
                        "FROM Entrega e INNER JOIN Cliente c " +
                        "ON e.id_cliente = c.id_cliente " +
