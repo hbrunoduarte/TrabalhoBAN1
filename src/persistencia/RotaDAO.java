@@ -119,7 +119,6 @@ public class RotaDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new RuntimeException("Erro ao listar todas as rotas!", e);
         }
 
