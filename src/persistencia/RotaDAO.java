@@ -52,11 +52,11 @@ public class RotaDAO {
     public List<Rota> listarTodas() {
         List<Rota> lista = new ArrayList<>();
         String query = "SELECT " +
-                       "r.id_rota, r.distancia_km, " +
-                       "m.id_motorista, m.nome AS nome_motorista, m.cnh, m.cpf, m.data_nascimento, " +
-                       "v.id_veiculo, v.placa, v.capacidade, v.modelo, " +
-                       "e.id_entrega, e.data_pedido, e.status, " +
-                       "c.id_cliente, c.nome AS nome_cliente, c.telefone, c.endereco " +
+                       "r.id_rota AS r_id_rota, r.distancia_km AS r_distancia_km, " +
+                       "m.id_motorista AS m_id_motorista, m.nome AS nome_motorista, m.cnh AS m_cnh, m.cpf AS m_cpf, m.data_nascimento AS m_data_nascimento, " +
+                       "v.id_veiculo AS v_id_veiculo, v.placa AS v_placa, v.capacidade AS v_capacidade, v.modelo AS v_modelo, " +
+                       "e.id_entrega AS e_id_entrega, e.data_pedido AS e_data_pedido, e.status AS e_status, " +
+                       "c.id_cliente AS c_id_cliente, c.nome AS nome_cliente, c.telefone AS c_telefone, c.endereco AS c_endereco " +
                        "FROM " +
                        "Rota r " +
                        "INNER JOIN " +
@@ -76,41 +76,41 @@ public class RotaDAO {
 
                 // Motorista
                 Motorista motorista = new Motorista();
-                motorista.setIdMotorista(rs.getInt("m.id_motorista"));
+                motorista.setIdMotorista(rs.getInt("m_id_motorista"));
                 motorista.setNome(rs.getString("nome_motorista"));
-                motorista.setCnh(rs.getString("m.cnh"));
-                motorista.setCpf(rs.getString("m.cpf"));
-                java.sql.Date mDataBD = rs.getDate("m.data_nascimento");
+                motorista.setCnh(rs.getString("m_cnh"));
+                motorista.setCpf(rs.getString("m_cpf"));
+                java.sql.Date mDataBD = rs.getDate("m_data_nascimento");
                 if(mDataBD != null)
                     motorista.setDtNascimento(mDataBD.toLocalDate());
 
                 // Veiculo
                 Veiculo veiculo = new Veiculo();
-                veiculo.setIdVeiculo(rs.getInt("v.id_veiculo"));
-                veiculo.setPlaca(rs.getString("v.placa"));
-                veiculo.setCapacidade(rs.getFloat("v.capacidade"));
-                veiculo.setModelo(rs.getString("v.modelo"));
+                veiculo.setIdVeiculo(rs.getInt("v_id_veiculo"));
+                veiculo.setPlaca(rs.getString("v_placa"));
+                veiculo.setCapacidade(rs.getFloat("v_capacidade"));
+                veiculo.setModelo(rs.getString("v_modelo"));
 
                 // Cliente
                 Cliente cliente = new Cliente();
-                cliente.setIdCliente(rs.getInt("c.id_cliente"));
+                cliente.setIdCliente(rs.getInt("c_id_cliente"));
                 cliente.setNome(rs.getString("nome_cliente"));
-                cliente.setTelefone(rs.getString("c.telefone"));
-                cliente.setEndereco(rs.getString("c.endereco"));
+                cliente.setTelefone(rs.getString("c_telefone"));
+                cliente.setEndereco(rs.getString("c_endereco"));
 
                 // Entrega
                 Entrega entrega = new Entrega();
-                entrega.setIdEntrega(rs.getInt("e.id_entrega"));
-                java.sql.Date eDataBD = rs.getDate("e.data_pedido");
+                entrega.setIdEntrega(rs.getInt("e_id_entrega"));
+                java.sql.Date eDataBD = rs.getDate("e_data_pedido");
                 if(eDataBD != null)
                     entrega.setDtPedido(eDataBD.toLocalDate());
-                entrega.setStatus(rs.getString("e.status"));
+                entrega.setStatus(rs.getString("e_status"));
                 entrega.setCliente(cliente);
 
                 // Rota
                 Rota rota = new Rota();
-                rota.setIdRota(rs.getInt("r.id_rota"));
-                rota.setDistanciaKm(rs.getFloat("r.distancia_km"));
+                rota.setIdRota(rs.getInt("r_id_rota"));
+                rota.setDistanciaKm(rs.getFloat("r_distancia_km"));
                 rota.setMotorista(motorista);
                 rota.setVeiculo(veiculo);
                 rota.setEntrega(entrega);
@@ -119,6 +119,7 @@ public class RotaDAO {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException("Erro ao listar todas as rotas!", e);
         }
 
